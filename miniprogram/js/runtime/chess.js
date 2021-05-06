@@ -14,7 +14,7 @@ const TOP = (Math.max(screenHeight, screenWidth) - CHESSBOARD_SIZE) / 2;
  * 游戏背景类
  * 提供update和render函数实现无限滚动的背景功能
  */
-export default class BackGround extends Sprite {
+export default class Chess extends Sprite {
   constructor(ctx) {
     super(BG_IMG_SRC, screenWidth, screenHeight)
 

@@ -1,6 +1,6 @@
 import Player from './player/index'
 import Enemy from './npc/enemy'
-import BackGround from './runtime/background'
+import Chessboard from './runtime/chessboard'
 import GameInfo from './runtime/gameinfo'
 import Music from './runtime/music'
 import DataBus from './databus'
@@ -27,7 +27,7 @@ export default class Main {
       this.touchHandler
     )
 
-    this.bg = new BackGround(ctx)
+    this.bg = new Chessboard(ctx)
     this.player = new Player(ctx)
     this.gameinfo = new GameInfo()
     this.music = new Music()
