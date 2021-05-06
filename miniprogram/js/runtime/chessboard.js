@@ -1,4 +1,5 @@
 import Sprite from '../base/sprite'
+import { CHESS_STATUS, ROLE, SITE } from '../constant';
 
 const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
@@ -18,21 +19,32 @@ const TOP = (Math.max(screenHeight, screenWidth) - CHESSBOARD_SIZE) / 2;
 export default class Chessboard extends Sprite {
   constructor(ctx) {
     super(BG_IMG_SRC, screenWidth, screenHeight)
-
+    
+    this.chesses = [];
     this.top = 0
 
     this.render(ctx);
-
-    // [[{ status: 0, 1, 2, role: 1～6, site: 1,2  }]]
-    // this.chessBoard = Array.fill({});
+    // 简单创建chesses 的二维数组，真正在这里修改
+    this.initChess();
   }
 
   start() {
     
   }
 
-  randChess() {
-    
+  // 初始化的时候会在这里
+  initChess() {
+    this.chesses = new Array(6)
+      .fill(
+        new Array(6)
+          .fill({
+            status: CHESS_STATUS.INITIALIZED,
+            role: ROLE.UNINITIALIZED,
+            site: SITE.UNINITIALIZED
+          }
+        )
+      );
+
   }
 
   update() {
