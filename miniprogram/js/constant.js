@@ -18,4 +18,14 @@ export const SITE = {
   UNINITIALIZED: 0, // 未初始化
   RED: 1, // 红色
   BLUE: 2, // 蓝色
-}
+};
+
+// 不同棋子的数量
+export const CHESS_COUNT = {
+  LEVEL_1: 8,
+  LEVEL_2: 4,
+  LEVEL_3: 2,
+  LEVEL_4: 2,
+  LEVEL_5: 1,
+  LEVEL_6: 1,
+};

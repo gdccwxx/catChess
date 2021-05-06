@@ -814,35 +814,35 @@
 
 	    _src.set(_this, '')
 
-	    const innerAudioContext = wx.createInnerAudioContext()
+	    // const innerAudioContext = wx.createInnerAudioContext()
 
-	    _innerAudioContext.set(_this, innerAudioContext)
+	    // _innerAudioContext.set(_this, innerAudioContext)
 
-	    innerAudioContext.onCanplay(function () {
-	      _this.dispatchEvent({type: 'load'})
-	      _this.dispatchEvent({type: 'loadend'})
-	      _this.dispatchEvent({type: 'canplay'})
-	      _this.dispatchEvent({type: 'canplaythrough'})
-	      _this.dispatchEvent({type: 'loadedmetadata'})
-	      _this.readyState = HAVE_CURRENT_DATA
-	    })
-	    innerAudioContext.onPlay(function () {
-	      _this.dispatchEvent({type: 'play'})
-	    })
-	    innerAudioContext.onPause(function () {
-	      _this.dispatchEvent({type: 'pause'})
-	    })
-	    innerAudioContext.onEnded(function () {
-	      _this.dispatchEvent({type: 'ended'})
-	      _this.readyState = HAVE_ENOUGH_DATA
-	    })
-	    innerAudioContext.onError(function () {
-	      _this.dispatchEvent({type: 'error'})
-	    })
+	    // // innerAudioContext.onCanplay(function () {
+	    // //   _this.dispatchEvent({type: 'load'})
+	    // //   _this.dispatchEvent({type: 'loadend'})
+	    // //   _this.dispatchEvent({type: 'canplay'})
+	    // //   _this.dispatchEvent({type: 'canplaythrough'})
+	    // //   _this.dispatchEvent({type: 'loadedmetadata'})
+	    // //   _this.readyState = HAVE_CURRENT_DATA
+	    // // })
+	    // innerAudioContext.onPlay(function () {
+	    //   _this.dispatchEvent({type: 'play'})
+	    // })
+	    // innerAudioContext.onPause(function () {
+	    //   _this.dispatchEvent({type: 'pause'})
+	    // })
+	    // innerAudioContext.onEnded(function () {
+	    //   _this.dispatchEvent({type: 'ended'})
+	    //   _this.readyState = HAVE_ENOUGH_DATA
+	    // })
+	    // innerAudioContext.onError(function () {
+	    //   _this.dispatchEvent({type: 'error'})
+	    // })
 
-	    if (url) {
-	      _innerAudioContext.get(_this).src = url
-	    }
+	    // if (url) {
+	    //   _innerAudioContext.get(_this).src = url
+	    // }
 	    return _this
 	  }
 
@@ -854,12 +854,12 @@
 	  }, {
 	    key: 'play',
 	    value: function play() {
-	      _innerAudioContext.get(this).play()
+	      // _innerAudioContext.get(this).play()
 	    }
 	  }, {
 	    key: 'pause',
 	    value: function pause() {
-	      _innerAudioContext.get(this).pause()
+	      // _innerAudioContext.get(this).pause()
 	    }
 	  }, {
 	    key: 'canPlayType',
@@ -878,19 +878,19 @@
 	  }, {
 	    key: 'cloneNode',
 	    value: function cloneNode() {
-	      const newAudio = new Audio()
-	      newAudio.loop = _innerAudioContext.get(this).loop
-	      newAudio.autoplay = _innerAudioContext.get(this).loop
-	      newAudio.src = this.src
+	      // const newAudio = new Audio()
+	      // newAudio.loop = _innerAudioContext.get(this).loop
+	      // newAudio.autoplay = _innerAudioContext.get(this).loop
+	      // newAudio.src = this.src
 	      return newAudio
 	    }
 	  }, {
 	    key: 'currentTime',
 	    get: function get() {
-	      return _innerAudioContext.get(this).currentTime
+	      // return _innerAudioContext.get(this).currentTime
 	    },
 	    set: function set(value) {
-	      _innerAudioContext.get(this).seek(value)
+	      // _innerAudioContext.get(this).seek(value)
 	    }
 	  }, {
 	    key: 'src',
@@ -899,28 +899,28 @@
 	    },
 	    set: function set(value) {
 	      _src.set(this, value)
-	      _innerAudioContext.get(this).src = value
+	      // _innerAudioContext.get(this).src = value
 	    }
 	  }, {
 	    key: 'loop',
 	    get: function get() {
-	      return _innerAudioContext.get(this).loop
+	      // return _innerAudioContext.get(this).loop
 	    },
 	    set: function set(value) {
-	      _innerAudioContext.get(this).loop = value
+	      // _innerAudioContext.get(this).loop = value
 	    }
 	  }, {
 	    key: 'autoplay',
 	    get: function get() {
-	      return _innerAudioContext.get(this).autoplay
+	      // return _innerAudioContext.get(this).autoplay
 	    },
 	    set: function set(value) {
-	      _innerAudioContext.get(this).autoplay = value
+	      // _innerAudioContext.get(this).autoplay = value
 	    }
 	  }, {
 	    key: 'paused',
 	    get: function get() {
-	      return _innerAudioContext.get(this).paused
+	      // return _innerAudioContext.get(this).paused
 	    }
 	  }])
 
