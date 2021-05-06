@@ -1,15 +1,15 @@
-import Sprite   from '../base/sprite'
-import DataBus  from '../databus'
+import Sprite from '../base/sprite'
+import DataBus from '../databus'
 
 const BULLET_IMG_SRC = 'images/bullet.png'
-const BULLET_WIDTH   = 16
-const BULLET_HEIGHT  = 30
+const BULLET_WIDTH = 16
+const BULLET_HEIGHT = 30
 
 const __ = {
   speed: Symbol('speed')
 }
 
-let databus = new DataBus()
+const databus = new DataBus()
 
 export default class Bullet extends Sprite {
   constructor() {
@@ -30,7 +30,6 @@ export default class Bullet extends Sprite {
     this.y -= this[__.speed]
 
     // 超出屏幕外回收自身
-    if ( this.y < -this.height )
-      databus.removeBullets(this)
+    if (this.y < -this.height) databus.removeBullets(this)
   }
 }

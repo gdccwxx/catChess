@@ -18,7 +18,7 @@ export default class Pool {
    * 获取对应的对象池
    */
   getPoolBySign(name) {
-    return this[__.poolDic][name] || ( this[__.poolDic][name] = [] )
+    return this[__.poolDic][name] || (this[__.poolDic][name] = [])
   }
 
   /**
@@ -26,11 +26,11 @@ export default class Pool {
    * 对象池为空创建新的类，否则从对象池中取
    */
   getItemByClass(name, className) {
-    let pool = this.getPoolBySign(name)
+    const pool = this.getPoolBySign(name)
 
-    let result = (  pool.length
-                  ? pool.shift()
-                  : new className()  )
+    const result = (pool.length
+      ? pool.shift()
+      : new className())
 
     return result
   }

@@ -1,7 +1,7 @@
-import Sprite  from './sprite'
+import Sprite from './sprite'
 import DataBus from '../databus'
 
-let databus = new DataBus()
+const databus = new DataBus()
 
 const __ = {
   timer: Symbol('timer'),
@@ -48,7 +48,7 @@ export default class Animation extends Sprite {
    */
   initFrames(imgList) {
     imgList.forEach((imgSrc) => {
-      let img = new Image()
+      const img = new Image()
       img.src = imgSrc
 
       this.imgList.push(img)
@@ -63,7 +63,7 @@ export default class Animation extends Sprite {
       this.imgList[this.index],
       this.x,
       this.y,
-      this.width  * 1.2,
+      this.width * 1.2,
       this.height * 1.2
     )
   }
@@ -71,14 +71,14 @@ export default class Animation extends Sprite {
   // 播放预定的帧动画
   playAnimation(index = 0, loop = false) {
     // 动画播放的时候精灵图不再展示，播放帧动画的具体帧
-    this.visible   = false
+    this.visible = false
 
     this.isPlaying = true
-    this.loop      = loop
+    this.loop = loop
 
-    this.index     = index
+    this.index = index
 
-    if ( this.interval > 0 && this.count ) {
+    if (this.interval > 0 && this.count) {
       this[__.timer] = setInterval(
         this.frameLoop.bind(this),
         this.interval
@@ -90,20 +90,17 @@ export default class Animation extends Sprite {
   stop() {
     this.isPlaying = false
 
-    if ( this[__.timer] )
-      clearInterval(this[__.timer])
+    if (this[__.timer]) clearInterval(this[__.timer])
   }
 
   // 帧遍历
   frameLoop() {
     this.index++
 
-    if ( this.index > this.count - 1 ) {
-      if ( this.loop ) {
+    if (this.index > this.count - 1) {
+      if (this.loop) {
         this.index = 0
-      }
-
-      else {
+      } else {
         this.index--
         this.stop()
       }

@@ -1,60 +1,54 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {}
+/** *** */ (function (modules) { // webpackBootstrap
+/** *** */ 	// The module cache
+/** *** */ 	const installedModules = {}
 
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
+  /** *** */ 	// The require function
+  /** *** */ 	function __webpack_require__(moduleId) {
+    /** *** */ 		// Check if module is in cache
+    /** *** */ 		if (installedModules[moduleId])
+    /** *** */ 			{ return installedModules[moduleId].exports }
 
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports
+    /** *** */ 		// Create a new module (and put it into the cache)
+    /** *** */ 		const module = installedModules[moduleId] = {
+      /** *** */ 			exports: {},
+      /** *** */ 			id: moduleId,
+      /** *** */ 			loaded: false
+      /** *** */}
 
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		}
+    /** *** */ 		// Execute the module function
+    /** *** */ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)
 
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)
+    /** *** */ 		// Flag the module as loaded
+    /** *** */ 		module.loaded = true
 
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true
-
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports
-/******/ 	}
+    /** *** */ 		// Return the exports of the module
+    /** *** */ 		return module.exports
+    /** *** */ 	}
 
 
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules
+  /** *** */ 	// expose the modules object (__webpack_modules__)
+  /** *** */ 	__webpack_require__.m = modules
 
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules
+  /** *** */ 	// expose the module cache
+  /** *** */ 	__webpack_require__.c = installedModules
 
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = ""
+  /** *** */ 	// __webpack_public_path__
+  /** *** */ 	__webpack_require__.p = ''
 
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0)
-/******/ })
-/************************************************************************/
-/******/ ([
+  /** *** */ 	// Load entry module and return exports
+  /** *** */ 	return __webpack_require__(0)
+/** *** */ }([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function (module, exports, __webpack_require__) {
+    const _window2 = __webpack_require__(1)
 
-	'use strict'
+    const _window = _interopRequireWildcard(_window2)
 
-	var _window2 = __webpack_require__(1)
+    function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj } else { const newObj = {}; if (obj != null) { for (const key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key] } } newObj.default = obj; return newObj } }
 
-	var _window = _interopRequireWildcard(_window2)
+    const global = GameGlobal
 
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key] } } newObj.default = obj; return newObj } }
-
-	var global = GameGlobal
-
-	function inject() {
+    function inject() {
 	  _window.addEventListener = _window.canvas.addEventListener = function (type, listener) {
 	    _window.document.addEventListener(type, listener)
 	  }
@@ -62,15 +56,15 @@
 	    _window.document.removeEventListener(type, listener)
 	  }
 
-	  var _wx$getSystemInfoSync = wx.getSystemInfoSync(),
-	      platform = _wx$getSystemInfoSync.platform
+	  const _wx$getSystemInfoSync = wx.getSystemInfoSync()
+	      const platform = _wx$getSystemInfoSync.platform
 
 	  // 开发者工具无法重定义 window
 
 
 	  if (typeof __devtoolssubcontext === 'undefined' && platform === 'devtools') {
-	    for (var key in _window) {
-	      var descriptor = Object.getOwnPropertyDescriptor(global, key)
+	    for (const key in _window) {
+	      const descriptor = Object.getOwnPropertyDescriptor(global, key)
 
 	      if (!descriptor || descriptor.configurable === true) {
 	        Object.defineProperty(window, key, {
@@ -79,8 +73,8 @@
 	      }
 	    }
 
-	    for (var _key in _window.document) {
-	      var _descriptor = Object.getOwnPropertyDescriptor(global.document, _key)
+	    for (const _key in _window.document) {
+	      const _descriptor = Object.getOwnPropertyDescriptor(global.document, _key)
 
 	      if (!_descriptor || _descriptor.configurable === true) {
 	        Object.defineProperty(global.document, _key, {
@@ -90,179 +84,173 @@
 	    }
 	    window.parent = window
 	  } else {
-	    for (var _key2 in _window) {
+	    for (const _key2 in _window) {
 	      global[_key2] = _window[_key2]
 	    }
 	    global.window = _window
 	    window = global
 	    window.top = window.parent = window
 	  }
-	}
+    }
 
-	if (!GameGlobal.__isAdapterInjected) {
+    if (!GameGlobal.__isAdapterInjected) {
 	  GameGlobal.__isAdapterInjected = true
 	  inject()
-	}
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    }
+    /***/ }),
+  /* 1 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
-	exports.cancelAnimationFrame = exports.requestAnimationFrame = exports.clearInterval = exports.clearTimeout = exports.setInterval = exports.setTimeout = exports.canvas = exports.location = exports.localStorage = exports.HTMLElement = exports.FileReader = exports.Audio = exports.Image = exports.WebSocket = exports.XMLHttpRequest = exports.navigator = exports.document = undefined
+    })
+    exports.cancelAnimationFrame = exports.requestAnimationFrame = exports.clearInterval = exports.clearTimeout = exports.setInterval = exports.setTimeout = exports.canvas = exports.location = exports.localStorage = exports.HTMLElement = exports.FileReader = exports.Audio = exports.Image = exports.WebSocket = exports.XMLHttpRequest = exports.navigator = exports.document = undefined
 
-	var _WindowProperties = __webpack_require__(2)
+    const _WindowProperties = __webpack_require__(2)
 
-	Object.keys(_WindowProperties).forEach(function (key) {
-	  if (key === "default" || key === "__esModule") return
+    Object.keys(_WindowProperties).forEach(function (key) {
+	  if (key === 'default' || key === '__esModule') return
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
 	      return _WindowProperties[key]
 	    }
 	  })
-	})
+    })
 
-	var _constructor = __webpack_require__(3)
+    const _constructor = __webpack_require__(3)
 
-	Object.keys(_constructor).forEach(function (key) {
-	  if (key === "default" || key === "__esModule") return
+    Object.keys(_constructor).forEach(function (key) {
+	  if (key === 'default' || key === '__esModule') return
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
 	      return _constructor[key]
 	    }
 	  })
-	})
+    })
 
-	var _Canvas = __webpack_require__(9)
+    const _Canvas = __webpack_require__(9)
 
-	var _Canvas2 = _interopRequireDefault(_Canvas)
+    const _Canvas2 = _interopRequireDefault(_Canvas)
 
-	var _document2 = __webpack_require__(10)
+    const _document2 = __webpack_require__(10)
 
-	var _document3 = _interopRequireDefault(_document2)
+    const _document3 = _interopRequireDefault(_document2)
 
-	var _navigator2 = __webpack_require__(17)
+    const _navigator2 = __webpack_require__(17)
 
-	var _navigator3 = _interopRequireDefault(_navigator2)
+    const _navigator3 = _interopRequireDefault(_navigator2)
 
-	var _XMLHttpRequest2 = __webpack_require__(18)
+    const _XMLHttpRequest2 = __webpack_require__(18)
 
-	var _XMLHttpRequest3 = _interopRequireDefault(_XMLHttpRequest2)
+    const _XMLHttpRequest3 = _interopRequireDefault(_XMLHttpRequest2)
 
-	var _WebSocket2 = __webpack_require__(19)
+    const _WebSocket2 = __webpack_require__(19)
 
-	var _WebSocket3 = _interopRequireDefault(_WebSocket2)
+    const _WebSocket3 = _interopRequireDefault(_WebSocket2)
 
-	var _Image2 = __webpack_require__(11)
+    const _Image2 = __webpack_require__(11)
 
-	var _Image3 = _interopRequireDefault(_Image2)
+    const _Image3 = _interopRequireDefault(_Image2)
 
-	var _Audio2 = __webpack_require__(12)
+    const _Audio2 = __webpack_require__(12)
 
-	var _Audio3 = _interopRequireDefault(_Audio2)
+    const _Audio3 = _interopRequireDefault(_Audio2)
 
-	var _FileReader2 = __webpack_require__(20)
+    const _FileReader2 = __webpack_require__(20)
 
-	var _FileReader3 = _interopRequireDefault(_FileReader2)
+    const _FileReader3 = _interopRequireDefault(_FileReader2)
 
-	var _HTMLElement2 = __webpack_require__(4)
+    const _HTMLElement2 = __webpack_require__(4)
 
-	var _HTMLElement3 = _interopRequireDefault(_HTMLElement2)
+    const _HTMLElement3 = _interopRequireDefault(_HTMLElement2)
 
-	var _localStorage2 = __webpack_require__(21)
+    const _localStorage2 = __webpack_require__(21)
 
-	var _localStorage3 = _interopRequireDefault(_localStorage2)
+    const _localStorage3 = _interopRequireDefault(_localStorage2)
 
-	var _location2 = __webpack_require__(22)
+    const _location2 = __webpack_require__(22)
 
-	var _location3 = _interopRequireDefault(_location2)
+    const _location3 = _interopRequireDefault(_location2)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	exports.document = _document3.default
-	exports.navigator = _navigator3.default
-	exports.XMLHttpRequest = _XMLHttpRequest3.default
-	exports.WebSocket = _WebSocket3.default
-	exports.Image = _Image3.default
-	exports.Audio = _Audio3.default
-	exports.FileReader = _FileReader3.default
-	exports.HTMLElement = _HTMLElement3.default
-	exports.localStorage = _localStorage3.default
-	exports.location = _location3.default
+    exports.document = _document3.default
+    exports.navigator = _navigator3.default
+    exports.XMLHttpRequest = _XMLHttpRequest3.default
+    exports.WebSocket = _WebSocket3.default
+    exports.Image = _Image3.default
+    exports.Audio = _Audio3.default
+    exports.FileReader = _FileReader3.default
+    exports.HTMLElement = _HTMLElement3.default
+    exports.localStorage = _localStorage3.default
+    exports.location = _location3.default
 
 
-	// 暴露全局的 canvas
-	var canvas = new _Canvas2.default()
+    // 暴露全局的 canvas
+    const canvas = new _Canvas2.default()
 
-	exports.canvas = canvas
-	exports.setTimeout = setTimeout
-	exports.setInterval = setInterval
-	exports.clearTimeout = clearTimeout
-	exports.clearInterval = clearInterval
-	exports.requestAnimationFrame = requestAnimationFrame
-	exports.cancelAnimationFrame = cancelAnimationFrame
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-	"use strict"
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.canvas = canvas
+    exports.setTimeout = setTimeout
+    exports.setInterval = setInterval
+    exports.clearTimeout = clearTimeout
+    exports.clearInterval = clearInterval
+    exports.requestAnimationFrame = requestAnimationFrame
+    exports.cancelAnimationFrame = cancelAnimationFrame
+    /***/ }),
+  /* 2 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _wx$getSystemInfoSync = wx.getSystemInfoSync(),
-	    screenWidth = _wx$getSystemInfoSync.screenWidth,
-	    screenHeight = _wx$getSystemInfoSync.screenHeight,
-	    devicePixelRatio = _wx$getSystemInfoSync.devicePixelRatio
+    const _wx$getSystemInfoSync = wx.getSystemInfoSync()
+	    const screenWidth = _wx$getSystemInfoSync.screenWidth
+	    const screenHeight = _wx$getSystemInfoSync.screenHeight
+	    const devicePixelRatio = _wx$getSystemInfoSync.devicePixelRatio
 
-	var innerWidth = exports.innerWidth = screenWidth
-	var innerHeight = exports.innerHeight = screenHeight
-	exports.devicePixelRatio = devicePixelRatio
-	var screen = exports.screen = {
+    const innerWidth = exports.innerWidth = screenWidth
+    const innerHeight = exports.innerHeight = screenHeight
+    exports.devicePixelRatio = devicePixelRatio
+    const screen = exports.screen = {
 	  availWidth: innerWidth,
 	  availHeight: innerHeight
-	}
-	var performance = exports.performance = {
+    }
+    const performance = exports.performance = {
 	  now: function now() {
 	    return Date.now() / 1000
 	  }
-	}
-	var ontouchstart = exports.ontouchstart = null
-	var ontouchmove = exports.ontouchmove = null
-	var ontouchend = exports.ontouchend = null
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    }
+    const ontouchstart = exports.ontouchstart = null
+    const ontouchmove = exports.ontouchmove = null
+    const ontouchend = exports.ontouchend = null
+    /***/ }),
+  /* 3 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
-	exports.HTMLCanvasElement = exports.HTMLImageElement = undefined
+    })
+    exports.HTMLCanvasElement = exports.HTMLImageElement = undefined
 
-	var _HTMLElement3 = __webpack_require__(4)
+    const _HTMLElement3 = __webpack_require__(4)
 
-	var _HTMLElement4 = _interopRequireDefault(_HTMLElement3)
+    const _HTMLElement4 = _interopRequireDefault(_HTMLElement3)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === "object" || typeof call === "function") ? call : self }
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === 'object' || typeof call === 'function') ? call : self }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass) } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass }
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError(`Super expression must either be null or a function, not ${typeof superClass}`) } subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+          value: subClass, enumerable: false, writable: true, configurable: true
+        }
+      }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass
+    }
 
-	var HTMLImageElement = exports.HTMLImageElement = function (_HTMLElement) {
+    const HTMLImageElement = exports.HTMLImageElement = (function (_HTMLElement) {
 	  _inherits(HTMLImageElement, _HTMLElement)
 
 	  function HTMLImageElement() {
@@ -272,9 +260,9 @@
 	  }
 
 	  return HTMLImageElement
-	}(_HTMLElement4.default)
+    }(_HTMLElement4.default))
 
-	var HTMLCanvasElement = exports.HTMLCanvasElement = function (_HTMLElement2) {
+    const HTMLCanvasElement = exports.HTMLCanvasElement = (function (_HTMLElement2) {
 	  _inherits(HTMLCanvasElement, _HTMLElement2)
 
 	  function HTMLCanvasElement() {
@@ -284,51 +272,53 @@
 	  }
 
 	  return HTMLCanvasElement
-	}(_HTMLElement4.default)
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    }(_HTMLElement4.default))
+    /***/ }),
+  /* 4 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }()
+    const _createClass = (function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { const descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }())
 
-	var _Element2 = __webpack_require__(5)
+    const _Element2 = __webpack_require__(5)
 
-	var _Element3 = _interopRequireDefault(_Element2)
+    const _Element3 = _interopRequireDefault(_Element2)
 
-	var _util = __webpack_require__(8)
+    const _util = __webpack_require__(8)
 
-	var _WindowProperties = __webpack_require__(2)
+    const _WindowProperties = __webpack_require__(2)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === "object" || typeof call === "function") ? call : self }
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === 'object' || typeof call === 'function') ? call : self }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass) } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass }
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError(`Super expression must either be null or a function, not ${typeof superClass}`) } subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+          value: subClass, enumerable: false, writable: true, configurable: true
+        }
+      }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass
+    }
 
-	var HTMLElement = function (_Element) {
+    const HTMLElement = (function (_Element) {
 	  _inherits(HTMLElement, _Element)
 
 	  function HTMLElement() {
-	    var tagName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
+	    const tagName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
 
 	    _classCallCheck(this, HTMLElement)
 
-	    var _this = _possibleConstructorReturn(this, (HTMLElement.__proto__ || Object.getPrototypeOf(HTMLElement)).call(this))
+	    const _this = _possibleConstructorReturn(this, (HTMLElement.__proto__ || Object.getPrototypeOf(HTMLElement)).call(this))
 
 	    _this.className = ''
 	    _this.childern = []
 	    _this.style = {
-	      width: _WindowProperties.innerWidth + 'px',
-	      height: _WindowProperties.innerHeight + 'px'
+	      width: `${_WindowProperties.innerWidth}px`,
+	      height: `${_WindowProperties.innerHeight}px`
 	    }
 	    _this.insertBefore = _util.noop
 	    _this.innerHTML = ''
@@ -363,53 +353,55 @@
 	  }, {
 	    key: 'clientWidth',
 	    get: function get() {
-	      var ret = parseInt(this.style.fontSize, 10) * this.innerHTML.length
+	      const ret = parseInt(this.style.fontSize, 10) * this.innerHTML.length
 
 	      return Number.isNaN(ret) ? 0 : ret
 	    }
 	  }, {
 	    key: 'clientHeight',
 	    get: function get() {
-	      var ret = parseInt(this.style.fontSize, 10)
+	      const ret = parseInt(this.style.fontSize, 10)
 
 	      return Number.isNaN(ret) ? 0 : ret
 	    }
 	  }])
 
 	  return HTMLElement
-	}(_Element3.default)
+    }(_Element3.default))
 
-	exports.default = HTMLElement
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = HTMLElement
+    /***/ }),
+  /* 5 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _Node2 = __webpack_require__(6)
+    const _Node2 = __webpack_require__(6)
 
-	var _Node3 = _interopRequireDefault(_Node2)
+    const _Node3 = _interopRequireDefault(_Node2)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === "object" || typeof call === "function") ? call : self }
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === 'object' || typeof call === 'function') ? call : self }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass) } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass }
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError(`Super expression must either be null or a function, not ${typeof superClass}`) } subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+          value: subClass, enumerable: false, writable: true, configurable: true
+        }
+      }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass
+    }
 
-	var ELement = function (_Node) {
+    const ELement = (function (_Node) {
 	  _inherits(ELement, _Node)
 
 	  function ELement() {
 	    _classCallCheck(this, ELement)
 
-	    var _this = _possibleConstructorReturn(this, (ELement.__proto__ || Object.getPrototypeOf(ELement)).call(this))
+	    const _this = _possibleConstructorReturn(this, (ELement.__proto__ || Object.getPrototypeOf(ELement)).call(this))
 
 	    _this.className = ''
 	    _this.children = []
@@ -417,41 +409,43 @@
 	  }
 
 	  return ELement
-	}(_Node3.default)
+    }(_Node3.default))
 
-	exports.default = ELement
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = ELement
+    /***/ }),
+  /* 6 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }()
+    const _createClass = (function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { const descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }())
 
-	var _EventTarget2 = __webpack_require__(7)
+    const _EventTarget2 = __webpack_require__(7)
 
-	var _EventTarget3 = _interopRequireDefault(_EventTarget2)
+    const _EventTarget3 = _interopRequireDefault(_EventTarget2)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === "object" || typeof call === "function") ? call : self }
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === 'object' || typeof call === 'function') ? call : self }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass) } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass }
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError(`Super expression must either be null or a function, not ${typeof superClass}`) } subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+          value: subClass, enumerable: false, writable: true, configurable: true
+        }
+      }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass
+    }
 
-	var Node = function (_EventTarget) {
+    const Node = (function (_EventTarget) {
 	  _inherits(Node, _EventTarget)
 
 	  function Node() {
 	    _classCallCheck(this, Node)
 
-	    var _this = _possibleConstructorReturn(this, (Node.__proto__ || Object.getPrototypeOf(Node)).call(this))
+	    const _this = _possibleConstructorReturn(this, (Node.__proto__ || Object.getPrototypeOf(Node)).call(this))
 
 	    _this.childNodes = []
 	    return _this
@@ -469,7 +463,7 @@
 	  }, {
 	    key: 'cloneNode',
 	    value: function cloneNode() {
-	      var copyNode = Object.create(this)
+	      const copyNode = Object.create(this)
 
 	      Object.assign(copyNode, this)
 	      return copyNode
@@ -477,7 +471,7 @@
 	  }, {
 	    key: 'removeChild',
 	    value: function removeChild(node) {
-	      var index = this.childNodes.findIndex(function (child) {
+	      const index = this.childNodes.findIndex(function (child) {
 	        return child === node
 	      })
 
@@ -489,27 +483,23 @@
 	  }])
 
 	  return Node
-	}(_EventTarget3.default)
+    }(_EventTarget3.default))
 
-	exports.default = Node
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = Node
+    /***/ }),
+  /* 7 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }()
+    const _createClass = (function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { const descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }())
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	var _events = new WeakMap()
+    const _events = new WeakMap()
 
-	var EventTarget = function () {
+    const EventTarget = (function () {
 	  function EventTarget() {
 	    _classCallCheck(this, EventTarget)
 
@@ -519,9 +509,9 @@
 	  _createClass(EventTarget, [{
 	    key: 'addEventListener',
 	    value: function addEventListener(type, listener) {
-	      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
+	      const options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
 
-	      var events = _events.get(this)
+	      let events = _events.get(this)
 
 	      if (!events) {
 	        events = {}
@@ -545,10 +535,10 @@
 	  }, {
 	    key: 'removeEventListener',
 	    value: function removeEventListener(type, listener) {
-	      var listeners = _events.get(this)[type]
+	      const listeners = _events.get(this)[type]
 
 	      if (listeners && listeners.length > 0) {
-	        for (var i = listeners.length; i--; i > 0) {
+	        for (let i = listeners.length; i--; i > 0) {
 	          if (listeners[i] === listener) {
 	            listeners.splice(i, 1)
 	            break
@@ -559,12 +549,12 @@
 	  }, {
 	    key: 'dispatchEvent',
 	    value: function dispatchEvent() {
-	      var event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+	      const event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
 
-	      var listeners = _events.get(this)[event.type]
+	      const listeners = _events.get(this)[event.type]
 
 	      if (listeners) {
-	        for (var i = 0; i < listeners.length; i++) {
+	        for (let i = 0; i < listeners.length; i++) {
 	          listeners[i](event)
 	        }
 	      }
@@ -572,60 +562,52 @@
 	  }])
 
 	  return EventTarget
-	}()
+    }())
 
-	exports.default = EventTarget
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-	"use strict"
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = EventTarget
+    /***/ }),
+  /* 8 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
-	exports.noop = noop
-	function noop() {}
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    })
+    exports.noop = noop
+    function noop() {}
+    /***/ }),
+  /* 9 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
-	exports.default = Canvas
+    })
+    exports.default = Canvas
 
-	var _constructor = __webpack_require__(3)
+    const _constructor = __webpack_require__(3)
 
-	var _HTMLElement = __webpack_require__(4)
+    const _HTMLElement = __webpack_require__(4)
 
-	var _HTMLElement2 = _interopRequireDefault(_HTMLElement)
+    const _HTMLElement2 = _interopRequireDefault(_HTMLElement)
 
-	var _document = __webpack_require__(10)
+    const _document = __webpack_require__(10)
 
-	var _document2 = _interopRequireDefault(_document)
+    const _document2 = _interopRequireDefault(_document)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	var hasModifiedCanvasPrototype = false
-	var hasInit2DContextConstructor = false
-	var hasInitWebGLContextConstructor = false
+    const hasModifiedCanvasPrototype = false
+    const hasInit2DContextConstructor = false
+    const hasInitWebGLContextConstructor = false
 
-	function Canvas() {
-	  var canvas = wx.createCanvas()
+    function Canvas() {
+	  const canvas = wx.createCanvas()
 
 	  canvas.type = 'canvas'
 
 	  canvas.__proto__.__proto__ = new _HTMLElement2.default('canvas')
 
-	  var _getContext = canvas.getContext
+	  const _getContext = canvas.getContext
 
 	  canvas.getBoundingClientRect = function () {
-	    var ret = {
+	    const ret = {
 	      top: 0,
 	      left: 0,
 	      width: window.innerWidth,
@@ -635,47 +617,43 @@
 	  }
 
 	  return canvas
-	}
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    }
+    /***/ }),
+  /* 10 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _window = __webpack_require__(1)
+    const _window = __webpack_require__(1)
 
-	var window = _interopRequireWildcard(_window)
+    const window = _interopRequireWildcard(_window)
 
-	var _HTMLElement = __webpack_require__(4)
+    const _HTMLElement = __webpack_require__(4)
 
-	var _HTMLElement2 = _interopRequireDefault(_HTMLElement)
+    const _HTMLElement2 = _interopRequireDefault(_HTMLElement)
 
-	var _Image = __webpack_require__(11)
+    const _Image = __webpack_require__(11)
 
-	var _Image2 = _interopRequireDefault(_Image)
+    const _Image2 = _interopRequireDefault(_Image)
 
-	var _Audio = __webpack_require__(12)
+    const _Audio = __webpack_require__(12)
 
-	var _Audio2 = _interopRequireDefault(_Audio)
+    const _Audio2 = _interopRequireDefault(_Audio)
 
-	var _Canvas = __webpack_require__(9)
+    const _Canvas = __webpack_require__(9)
 
-	var _Canvas2 = _interopRequireDefault(_Canvas)
+    const _Canvas2 = _interopRequireDefault(_Canvas)
 
-	__webpack_require__(15)
+    __webpack_require__(15)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key] } } newObj.default = obj; return newObj } }
+    function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj } else { const newObj = {}; if (obj != null) { for (const key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key] } } newObj.default = obj; return newObj } }
 
-	var events = {}
+    const events = {}
 
-	var document = {
+    var document = {
 	  readyState: 'complete',
 	  visibilityState: 'visible',
 	  documentElement: window,
@@ -723,7 +701,7 @@
 	      return document.body
 	    } else if (query === 'canvas') {
 	      return window.canvas
-	    } else if (query === '#' + window.canvas.id) {
+	    } else if (query === `#${window.canvas.id}`) {
 	      return window.canvas
 	    }
 	    return null
@@ -745,10 +723,10 @@
 	    events[type].push(listener)
 	  },
 	  removeEventListener: function removeEventListener(type, listener) {
-	    var listeners = events[type]
+	    const listeners = events[type]
 
 	    if (listeners && listeners.length > 0) {
-	      for (var i = listeners.length; i--; i > 0) {
+	      for (let i = listeners.length; i--; i > 0) {
 	        if (listeners[i] === listener) {
 	          listeners.splice(i, 1)
 	          break
@@ -757,76 +735,74 @@
 	    }
 	  },
 	  dispatchEvent: function dispatchEvent(event) {
-	    var listeners = events[event.type]
+	    const listeners = events[event.type]
 
 	    if (listeners) {
-	      for (var i = 0; i < listeners.length; i++) {
+	      for (let i = 0; i < listeners.length; i++) {
 	        listeners[i](event)
 	      }
 	    }
 	  }
-	}
+    }
 
-	exports.default = document
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-	"use strict"
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = document
+    /***/ }),
+  /* 11 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
-	exports.default = Image
-	function Image() {
-	  var image = wx.createImage()
+    })
+    exports.default = Image
+    function Image() {
+	  const image = wx.createImage()
 
 	  return image
-	}
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    }
+    /***/ }),
+  /* 12 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }()
+    const _createClass = (function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { const descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }())
 
-	var _HTMLAudioElement2 = __webpack_require__(13)
+    const _HTMLAudioElement2 = __webpack_require__(13)
 
-	var _HTMLAudioElement3 = _interopRequireDefault(_HTMLAudioElement2)
+    const _HTMLAudioElement3 = _interopRequireDefault(_HTMLAudioElement2)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === "object" || typeof call === "function") ? call : self }
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === 'object' || typeof call === 'function') ? call : self }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass) } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass }
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError(`Super expression must either be null or a function, not ${typeof superClass}`) } subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+          value: subClass, enumerable: false, writable: true, configurable: true
+        }
+      }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass
+    }
 
-	var HAVE_NOTHING = 0
-	var HAVE_METADATA = 1
-	var HAVE_CURRENT_DATA = 2
-	var HAVE_FUTURE_DATA = 3
-	var HAVE_ENOUGH_DATA = 4
+    const HAVE_NOTHING = 0
+    const HAVE_METADATA = 1
+    const HAVE_CURRENT_DATA = 2
+    const HAVE_FUTURE_DATA = 3
+    const HAVE_ENOUGH_DATA = 4
 
-	var _innerAudioContext = new WeakMap()
-	var _src = new WeakMap()
-	var _loop = new WeakMap()
-	var _autoplay = new WeakMap()
+    const _innerAudioContext = new WeakMap()
+    const _src = new WeakMap()
+    const _loop = new WeakMap()
+    const _autoplay = new WeakMap()
 
-	var Audio = function (_HTMLAudioElement) {
+    const Audio = (function (_HTMLAudioElement) {
 	  _inherits(Audio, _HTMLAudioElement)
 
 	  function Audio(url) {
 	    _classCallCheck(this, Audio)
 
-	    var _this = _possibleConstructorReturn(this, (Audio.__proto__ || Object.getPrototypeOf(Audio)).call(this))
+	    const _this = _possibleConstructorReturn(this, (Audio.__proto__ || Object.getPrototypeOf(Audio)).call(this))
 
 	    _this.HAVE_NOTHING = HAVE_NOTHING
 	    _this.HAVE_METADATA = HAVE_METADATA
@@ -838,30 +814,30 @@
 
 	    _src.set(_this, '')
 
-	    var innerAudioContext = wx.createInnerAudioContext()
+	    const innerAudioContext = wx.createInnerAudioContext()
 
 	    _innerAudioContext.set(_this, innerAudioContext)
 
 	    innerAudioContext.onCanplay(function () {
-	      _this.dispatchEvent({ type: 'load' })
-	      _this.dispatchEvent({ type: 'loadend' })
-	      _this.dispatchEvent({ type: 'canplay' })
-	      _this.dispatchEvent({ type: 'canplaythrough' })
-	      _this.dispatchEvent({ type: 'loadedmetadata' })
+	      _this.dispatchEvent({type: 'load'})
+	      _this.dispatchEvent({type: 'loadend'})
+	      _this.dispatchEvent({type: 'canplay'})
+	      _this.dispatchEvent({type: 'canplaythrough'})
+	      _this.dispatchEvent({type: 'loadedmetadata'})
 	      _this.readyState = HAVE_CURRENT_DATA
 	    })
 	    innerAudioContext.onPlay(function () {
-	      _this.dispatchEvent({ type: 'play' })
+	      _this.dispatchEvent({type: 'play'})
 	    })
 	    innerAudioContext.onPause(function () {
-	      _this.dispatchEvent({ type: 'pause' })
+	      _this.dispatchEvent({type: 'pause'})
 	    })
 	    innerAudioContext.onEnded(function () {
-	      _this.dispatchEvent({ type: 'ended' })
+	      _this.dispatchEvent({type: 'ended'})
 	      _this.readyState = HAVE_ENOUGH_DATA
 	    })
 	    innerAudioContext.onError(function () {
-	      _this.dispatchEvent({ type: 'error' })
+	      _this.dispatchEvent({type: 'error'})
 	    })
 
 	    if (url) {
@@ -888,7 +864,7 @@
 	  }, {
 	    key: 'canPlayType',
 	    value: function canPlayType() {
-	      var mediaType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
+	      const mediaType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
 
 	      if (typeof mediaType !== 'string') {
 	        return ''
@@ -902,7 +878,7 @@
 	  }, {
 	    key: 'cloneNode',
 	    value: function cloneNode() {
-	      var newAudio = new Audio()
+	      const newAudio = new Audio()
 	      newAudio.loop = _innerAudioContext.get(this).loop
 	      newAudio.autoplay = _innerAudioContext.get(this).loop
 	      newAudio.src = this.src
@@ -949,33 +925,35 @@
 	  }])
 
 	  return Audio
-	}(_HTMLAudioElement3.default)
+    }(_HTMLAudioElement3.default))
 
-	exports.default = Audio
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = Audio
+    /***/ }),
+  /* 13 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _HTMLMediaElement2 = __webpack_require__(14)
+    const _HTMLMediaElement2 = __webpack_require__(14)
 
-	var _HTMLMediaElement3 = _interopRequireDefault(_HTMLMediaElement2)
+    const _HTMLMediaElement3 = _interopRequireDefault(_HTMLMediaElement2)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === "object" || typeof call === "function") ? call : self }
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === 'object' || typeof call === 'function') ? call : self }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass) } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass }
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError(`Super expression must either be null or a function, not ${typeof superClass}`) } subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+          value: subClass, enumerable: false, writable: true, configurable: true
+        }
+      }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass
+    }
 
-	var HTMLAudioElement = function (_HTMLMediaElement) {
+    const HTMLAudioElement = (function (_HTMLMediaElement) {
 	  _inherits(HTMLAudioElement, _HTMLMediaElement)
 
 	  function HTMLAudioElement() {
@@ -985,35 +963,37 @@
 	  }
 
 	  return HTMLAudioElement
-	}(_HTMLMediaElement3.default)
+    }(_HTMLMediaElement3.default))
 
-	exports.default = HTMLAudioElement
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = HTMLAudioElement
+    /***/ }),
+  /* 14 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }()
+    const _createClass = (function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { const descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }())
 
-	var _HTMLElement2 = __webpack_require__(4)
+    const _HTMLElement2 = __webpack_require__(4)
 
-	var _HTMLElement3 = _interopRequireDefault(_HTMLElement2)
+    const _HTMLElement3 = _interopRequireDefault(_HTMLElement2)
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === "object" || typeof call === "function") ? call : self }
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called") } return call && (typeof call === 'object' || typeof call === 'function') ? call : self }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass) } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass }
+    function _inherits(subClass, superClass) {
+      if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError(`Super expression must either be null or a function, not ${typeof superClass}`) } subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+          value: subClass, enumerable: false, writable: true, configurable: true
+        }
+      }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass
+    }
 
-	var HTMLMediaElement = function (_HTMLElement) {
+    const HTMLMediaElement = (function (_HTMLElement) {
 	  _inherits(HTMLMediaElement, _HTMLElement)
 
 	  function HTMLMediaElement(type) {
@@ -1043,41 +1023,33 @@
 	  }])
 
 	  return HTMLMediaElement
-	}(_HTMLElement3.default)
+    }(_HTMLElement3.default))
 
-	exports.default = HTMLMediaElement
+    exports.default = HTMLMediaElement
+    /***/ }),
+  /* 15 */
+  /***/ (function (module, exports, __webpack_require__) {
+    __webpack_require__(16)
+    /***/ }),
+  /* 16 */
+  /***/ (function (module, exports, __webpack_require__) {
+    const _window = __webpack_require__(1)
 
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+    const window = _interopRequireWildcard(_window)
 
-	'use strict'
+    const _document = __webpack_require__(10)
 
-	__webpack_require__(16)
+    const _document2 = _interopRequireDefault(_document)
 
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
+    const _util = __webpack_require__(8)
 
-	'use strict'
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj} }
 
-	var _window = __webpack_require__(1)
+    function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj } else { const newObj = {}; if (obj != null) { for (const key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key] } } newObj.default = obj; return newObj } }
 
-	var window = _interopRequireWildcard(_window)
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	var _document = __webpack_require__(10)
-
-	var _document2 = _interopRequireDefault(_document)
-
-	var _util = __webpack_require__(8)
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key] } } newObj.default = obj; return newObj } }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
-
-	var TouchEvent = function TouchEvent(type) {
+    const TouchEvent = function TouchEvent(type) {
 	  _classCallCheck(this, TouchEvent)
 
 	  this.target = window.canvas
@@ -1089,11 +1061,11 @@
 	  this.stopPropagation = _util.noop
 
 	  this.type = type
-	}
+    }
 
-	function touchEventHandlerFactory(type) {
+    function touchEventHandlerFactory(type) {
 	  return function (event) {
-	    var touchEvent = new TouchEvent(type)
+	    const touchEvent = new TouchEvent(type)
 
 	    touchEvent.touches = event.touches
 	    touchEvent.targetTouches = Array.prototype.slice.call(event.touches)
@@ -1101,31 +1073,27 @@
 	    touchEvent.timeStamp = event.timeStamp
 	    _document2.default.dispatchEvent(touchEvent)
 	  }
-	}
+    }
 
-	wx.onTouchStart(touchEventHandlerFactory('touchstart'))
-	wx.onTouchMove(touchEventHandlerFactory('touchmove'))
-	wx.onTouchEnd(touchEventHandlerFactory('touchend'))
-	wx.onTouchCancel(touchEventHandlerFactory('touchcancel'))
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    wx.onTouchStart(touchEventHandlerFactory('touchstart'))
+    wx.onTouchMove(touchEventHandlerFactory('touchmove'))
+    wx.onTouchEnd(touchEventHandlerFactory('touchend'))
+    wx.onTouchCancel(touchEventHandlerFactory('touchcancel'))
+    /***/ }),
+  /* 17 */
+  /***/ (function (module, exports, __webpack_require__) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _util = __webpack_require__(8)
+    const _util = __webpack_require__(8)
 
-	// TODO 需要 wx.getSystemInfo 获取更详细信息
-	var _wx$getSystemInfoSync = wx.getSystemInfoSync(),
-	    platform = _wx$getSystemInfoSync.platform
+    // TODO 需要 wx.getSystemInfo 获取更详细信息
+    const _wx$getSystemInfoSync = wx.getSystemInfoSync()
+	    const platform = _wx$getSystemInfoSync.platform
 
-	var navigator = {
-	  platform: platform,
+    const navigator = {
+	  platform,
 	  language: 'zh-cn',
 	  appVersion: '5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1',
 	  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Mobile/14E8301 MicroMessenger/6.6.0 MiniGame NetType/WIFI Language/zh_CN',
@@ -1137,46 +1105,42 @@
 	    watchPosition: _util.noop,
 	    clearWatch: _util.noop
 	  }
-	}
+    }
 
-	exports.default = navigator
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = navigator
+    /***/ }),
+  /* 18 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }()
+    const _createClass = (function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { const descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }())
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	var _url = new WeakMap()
-	var _method = new WeakMap()
-	var _requestHeader = new WeakMap()
-	var _responseHeader = new WeakMap()
-	var _requestTask = new WeakMap()
+    const _url = new WeakMap()
+    const _method = new WeakMap()
+    const _requestHeader = new WeakMap()
+    const _responseHeader = new WeakMap()
+    const _requestTask = new WeakMap()
 
-	function _triggerEvent(type) {
-	  if (typeof this['on' + type] === 'function') {
+    function _triggerEvent(type) {
+	  if (typeof this[`on${type}`] === 'function') {
 	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
 	      args[_key - 1] = arguments[_key]
 	    }
 
-	    this['on' + type].apply(this, args)
+	    this[`on${type}`].apply(this, args)
 	  }
-	}
+    }
 
-	function _changeReadyState(readyState) {
+    function _changeReadyState(readyState) {
 	  this.readyState = readyState
 	  _triggerEvent.call(this, 'readystatechange')
-	}
+    }
 
-	var XMLHttpRequest = function () {
+    const XMLHttpRequest = (function () {
 	  // TODO 没法模拟 HEADERS_RECEIVED 和 LOADING 两个状态
 	  function XMLHttpRequest() {
 	    _classCallCheck(this, XMLHttpRequest)
@@ -1213,7 +1177,7 @@
 	  _createClass(XMLHttpRequest, [{
 	    key: 'abort',
 	    value: function abort() {
-	      var myRequestTask = _requestTask.get(this)
+	      const myRequestTask = _requestTask.get(this)
 
 	      if (myRequestTask) {
 	        myRequestTask.abort()
@@ -1222,10 +1186,10 @@
 	  }, {
 	    key: 'getAllResponseHeaders',
 	    value: function getAllResponseHeaders() {
-	      var responseHeader = _responseHeader.get(this)
+	      const responseHeader = _responseHeader.get(this)
 
 	      return Object.keys(responseHeader).map(function (header) {
-	        return header + ': ' + responseHeader[header]
+	        return `${header}: ${responseHeader[header]}`
 	      }).join('\n')
 	    }
 	  }, {
@@ -1235,7 +1199,7 @@
 	    }
 	  }, {
 	    key: 'open',
-	    value: function open(method, url /* async, user, password 这几个参数在小程序内不支持*/) {
+	    value: function open(method, url /* async, user, password 这几个参数在小程序内不支持 */) {
 	      _method.set(this, method)
 	      _url.set(this, url)
 	      _changeReadyState.call(this, XMLHttpRequest.OPENED)
@@ -1246,23 +1210,23 @@
 	  }, {
 	    key: 'send',
 	    value: function send() {
-	      var _this = this
+	      const _this = this
 
-	      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
+	      const data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
 
 	      if (this.readyState !== XMLHttpRequest.OPENED) {
 	        throw new Error("Failed to execute 'send' on 'XMLHttpRequest': The object's state must be OPENED.")
 	      } else {
 	        wx.request({
-	          data: data,
+	          data,
 	          url: _url.get(this),
 	          method: _method.get(this),
 	          header: _requestHeader.get(this),
 	          responseType: this.responseType,
 	          success: function success(_ref) {
-	            var data = _ref.data,
-	                statusCode = _ref.statusCode,
-	                header = _ref.header
+	            let data = _ref.data
+	                const statusCode = _ref.statusCode
+	                const header = _ref.header
 
 	            if (typeof data !== 'string' && !(data instanceof ArrayBuffer)) {
 	              try {
@@ -1282,10 +1246,10 @@
 
 	            if (data instanceof ArrayBuffer) {
 	              _this.responseText = ''
-	              var bytes = new Uint8Array(data)
-	              var len = bytes.byteLength
+	              const bytes = new Uint8Array(data)
+	              const len = bytes.byteLength
 
-	              for (var i = 0; i < len; i++) {
+	              for (let i = 0; i < len; i++) {
 	                _this.responseText += String.fromCharCode(bytes[i])
 	              }
 	            } else {
@@ -1296,7 +1260,7 @@
 	            _triggerEvent.call(_this, 'loadend')
 	          },
 	          fail: function fail(_ref2) {
-	            var errMsg = _ref2.errMsg
+	            const errMsg = _ref2.errMsg
 
 	            // TODO 规范错误
 	            if (errMsg.indexOf('abort') !== -1) {
@@ -1312,7 +1276,7 @@
 	  }, {
 	    key: 'setRequestHeader',
 	    value: function setRequestHeader(header, value) {
-	      var myHeader = _requestHeader.get(this)
+	      const myHeader = _requestHeader.get(this)
 
 	      myHeader[header] = value
 	      _requestHeader.set(this, myHeader)
@@ -1320,39 +1284,35 @@
 	  }])
 
 	  return XMLHttpRequest
-	}()
+    }())
 
-	XMLHttpRequest.UNSEND = 0
-	XMLHttpRequest.OPENED = 1
-	XMLHttpRequest.HEADERS_RECEIVED = 2
-	XMLHttpRequest.LOADING = 3
-	XMLHttpRequest.DONE = 4
-	exports.default = XMLHttpRequest
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    XMLHttpRequest.UNSEND = 0
+    XMLHttpRequest.OPENED = 1
+    XMLHttpRequest.HEADERS_RECEIVED = 2
+    XMLHttpRequest.LOADING = 3
+    XMLHttpRequest.DONE = 4
+    exports.default = XMLHttpRequest
+    /***/ }),
+  /* 19 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }()
+    const _createClass = (function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { const descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor } }())
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	var _socketTask = new WeakMap()
+    const _socketTask = new WeakMap()
 
-	var WebSocket = function () {
+    const WebSocket = (function () {
 	  // TODO 更新 binaryType
 	  // The connection is in the process of closing.
 	  // The connection is not yet open.
 	  function WebSocket(url) {
-	    var _this = this
+	    const _this = this
 
-	    var protocols = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
+	    const protocols = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : []
 
 	    _classCallCheck(this, WebSocket)
 
@@ -1367,14 +1327,14 @@
 	    this.readyState = 3
 
 	    if (typeof url !== 'string' || !/(^ws:\/\/)|(^wss:\/\/)/.test(url)) {
-	      throw new TypeError('Failed to construct \'WebSocket\': The URL \'' + url + '\' is invalid')
+	      throw new TypeError(`Failed to construct 'WebSocket': The URL '${url}' is invalid`)
 	    }
 
 	    this.url = url
 	    this.readyState = WebSocket.CONNECTING
 
-	    var socketTask = wx.connectSocket({
-	      url: url,
+	    const socketTask = wx.connectSocket({
+	      url,
 	      protocols: Array.isArray(protocols) ? protocols : [protocols]
 	    })
 
@@ -1418,78 +1378,70 @@
 	    key: 'close',
 	    value: function close(code, reason) {
 	      this.readyState = WebSocket.CLOSING
-	      var socketTask = _socketTask.get(this)
+	      const socketTask = _socketTask.get(this)
 
 	      socketTask.close({
-	        code: code,
-	        reason: reason
+	        code,
+	        reason
 	      })
 	    }
 	  }, {
 	    key: 'send',
 	    value: function send(data) {
 	      if (typeof data !== 'string' && !(data instanceof ArrayBuffer)) {
-	        throw new TypeError('Failed to send message: The data ' + data + ' is invalid')
+	        throw new TypeError(`Failed to send message: The data ${data} is invalid`)
 	      }
 
-	      var socketTask = _socketTask.get(this)
+	      const socketTask = _socketTask.get(this)
 
 	      socketTask.send({
-	        data: data
+	        data
 	      })
 	    }
 	  }])
 
 	  return WebSocket
-	}()
+    }())
 
-	WebSocket.CONNECTING = 0
-	WebSocket.OPEN = 1
-	WebSocket.CLOSING = 2
-	WebSocket.CLOSED = 3
-	exports.default = WebSocket
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-	"use strict"
-
-	Object.defineProperty(exports, "__esModule", {
+    WebSocket.CONNECTING = 0
+    WebSocket.OPEN = 1
+    WebSocket.CLOSING = 2
+    WebSocket.CLOSED = 3
+    exports.default = WebSocket
+    /***/ }),
+  /* 20 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
+    })
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function") } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
 
-	/*
+    /*
 	 * TODO 使用 wx.readFile 来封装 FileReader
 	 */
-	var FileReader = function FileReader() {
+    const FileReader = function FileReader() {
 	  _classCallCheck(this, FileReader)
-	}
+    }
 
-	exports.default = FileReader
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-	"use strict"
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = FileReader
+    /***/ }),
+  /* 21 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
-	var localStorage = {
+    })
+    const localStorage = {
 	  get length() {
-	    var _wx$getStorageInfoSyn = wx.getStorageInfoSync(),
-	        keys = _wx$getStorageInfoSyn.keys
+	    const _wx$getStorageInfoSyn = wx.getStorageInfoSync()
+	        const keys = _wx$getStorageInfoSyn.keys
 
 	    return keys.length
 	  },
 
 	  key: function key(n) {
-	    var _wx$getStorageInfoSyn2 = wx.getStorageInfoSync(),
-	        keys = _wx$getStorageInfoSyn2.keys
+	    const _wx$getStorageInfoSyn2 = wx.getStorageInfoSync()
+	        const keys = _wx$getStorageInfoSyn2.keys
 
 	    return keys[n]
 	  },
@@ -1505,25 +1457,20 @@
 	  clear: function clear() {
 	    wx.clearStorageSync()
 	  }
-	}
+    }
 
-	exports.default = localStorage
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-	'use strict'
-
-	Object.defineProperty(exports, "__esModule", {
+    exports.default = localStorage
+    /***/ }),
+  /* 22 */
+  /***/ (function (module, exports) {
+    Object.defineProperty(exports, '__esModule', {
 	  value: true
-	})
-	var location = {
+    })
+    const location = {
 	  href: 'game.js',
 	  reload: function reload() {}
-	}
+    }
 
-	exports.default = location
-
-/***/ })
-/******/ ])
+    exports.default = location
+    /***/ })
+/** *** */ ]))

@@ -1,13 +1,13 @@
-const screenWidth  = window.innerWidth
+const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
 
-let atlas = new Image()
-atlas.src = 'images/chess-init.png'
+const atlas = new Image()
+atlas.src = 'images/Common.png'
 
 export default class GameInfo {
   renderGameScore(ctx, score) {
-    ctx.fillStyle = "#ffffff"
-    ctx.font      = "20px Arial"
+    ctx.fillStyle = '#ffffff'
+    ctx.font = '20px Arial'
 
     ctx.fillText(
       score,
@@ -16,11 +16,11 @@ export default class GameInfo {
     )
   }
 
-  renderGameOver(ctx, score, personalHighScore) {
+  renderGameOver(ctx, score) {
     ctx.drawImage(atlas, 0, 0, 119, 108, screenWidth / 2 - 150, screenHeight / 2 - 100, 300, 300)
 
-    ctx.fillStyle = "#ffffff"
-    ctx.font    = "20px Arial"
+    ctx.fillStyle = '#ffffff'
+    ctx.font = '20px Arial'
 
     ctx.fillText(
       '游戏结束',
@@ -29,19 +29,11 @@ export default class GameInfo {
     )
 
     ctx.fillText(
-      '得分: ' + score,
+      `得分: ${score}`,
       screenWidth / 2 - 40,
       screenHeight / 2 - 100 + 130
     )
 
-    if (personalHighScore) {
-      ctx.fillText(
-        '最高分: ' + personalHighScore,
-        screenWidth / 2 - 40,
-        screenHeight / 2 - 100 + 160
-      )
-    }
-    
     ctx.drawImage(
       atlas,
       120, 6, 39, 24,
@@ -63,9 +55,8 @@ export default class GameInfo {
     this.btnArea = {
       startX: screenWidth / 2 - 40,
       startY: screenHeight / 2 - 100 + 180,
-      endX  : screenWidth / 2  + 50,
-      endY  : screenHeight / 2 - 100 + 255
+      endX: screenWidth / 2 + 50,
+      endY: screenHeight / 2 - 100 + 255
     }
   }
 }
-
