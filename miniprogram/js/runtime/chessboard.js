@@ -4,8 +4,10 @@ const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
 
 const BG_IMG_SRC = 'images/bg.jpg'
+
+const CELL_NUM = 6; // 一共横、竖向有多少个
 const BORDER_CHESS = 20;
-const CELL_NUMS = 6; // 一共横、竖向有多少个
+
 const CHESSBOARD_SIZE = Math.min(screenHeight, screenWidth);
 const CELL_SIZE = (CHESSBOARD_SIZE -  BORDER_CHESS * 2) / 6;
 const TOP = (Math.max(screenHeight, screenWidth) - CHESSBOARD_SIZE) / 2;
@@ -19,7 +21,18 @@ export default class Chessboard extends Sprite {
 
     this.top = 0
 
-    this.render(ctx)
+    this.render(ctx);
+
+    // [[{ status: 0, 1, 2, role: 1～6, site: 1,2  }]]
+    // this.chessBoard = Array.fill({});
+  }
+
+  start() {
+    
+  }
+
+  randChess() {
+    
   }
 
   update() {
@@ -31,7 +44,7 @@ export default class Chessboard extends Sprite {
   render(ctx) {
     ctx.strokeStyle="#BFBFBF";
 
-    for (let i = 0; i < CELL_NUMS + 1; i++) {
+    for (let i = 0; i < CELL_NUM + 1; i++) {
       ctx.moveTo(BORDER_CHESS + CELL_SIZE * i, TOP + BORDER_CHESS);
       ctx.lineTo(BORDER_CHESS + CELL_SIZE * i, TOP + CHESSBOARD_SIZE - BORDER_CHESS);
       ctx.stroke();
