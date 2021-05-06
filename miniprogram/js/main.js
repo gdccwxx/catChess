@@ -32,16 +32,17 @@ export default class Main {
     this.gameinfo = new GameInfo()
     this.music = new Music()
 
-    this.bindLoop = this.loop.bind(this)
-    this.hasEventBind = false
+    // this.bindLoop = this.loop.bind(this)
+    // this.hasEventBind = false
 
-    // 清除上一局的动画
-    window.cancelAnimationFrame(this.aniId)
+    // // 清除上一局的动画
+    // window.cancelAnimationFrame(this.aniId)
 
-    this.aniId = window.requestAnimationFrame(
-      this.bindLoop,
-      canvas
-    )
+    // this.aniId = window.requestAnimationFrame(
+    //   this.bindLoop,
+    //   canvas
+    // )
+    // this.bg.render();
   }
 
   /**
@@ -143,13 +144,13 @@ export default class Main {
   update() {
     if (databus.gameOver) return
 
-    this.bg.update()
+    // this.bg.update()
 
-    databus.bullets
-      .concat(databus.enemys)
-      .forEach((item) => {
-        item.update()
-      })
+    // databus.bullets
+    //   .concat(databus.enemys)
+    //   .forEach((item) => {
+    //     // item.update()
+    //   })
 
     this.enemyGenerate()
 
@@ -165,7 +166,7 @@ export default class Main {
   loop() {
     databus.frame++
 
-    this.update()
+    // this.update()
     this.render()
 
     this.aniId = window.requestAnimationFrame(

@@ -4,8 +4,11 @@ const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
 
 const BG_IMG_SRC = 'images/bg.jpg'
-const BG_WIDTH = 512
-const BG_HEIGHT = 512
+const BORDER_CHESS = 20;
+const CELL_NUMS = 6; // 一共横、竖向有多少个
+const CHESSBOARD_SIZE = Math.min(screenHeight, screenWidth);
+const CELL_SIZE = (CHESSBOARD_SIZE -  BORDER_CHESS * 2) / 6;
+const TOP = (Math.max(screenHeight, screenWidth) - CHESSBOARD_SIZE) / 2;
 
 /**
  * 游戏背景类
@@ -13,7 +16,7 @@ const BG_HEIGHT = 512
  */
 export default class BackGround extends Sprite {
   constructor(ctx) {
-    super(BG_IMG_SRC, BG_WIDTH, BG_HEIGHT)
+    super(BG_IMG_SRC, screenWidth, screenHeight)
 
     this.top = 0
 
@@ -26,35 +29,16 @@ export default class BackGround extends Sprite {
     if (this.top >= screenHeight) this.top = 0
   }
 
-  /**
-   * 背景图重绘函数
-   * 绘制两张图片，两张图片大小和屏幕一致
-   * 第一张漏出高度为top部分，其余的隐藏在屏幕上面
-   * 第二张补全除了top高度之外的部分，其余的隐藏在屏幕下面
-   */
   render(ctx) {
-    ctx.drawImage(
-      this.img,
-      0,
-      0,
-      this.width,
-      this.height,
-      0,
-      -screenHeight + this.top,
-      screenWidth,
-      screenHeight
-    )
+    ctx.strokeStyle="#BFBFBF";
 
-    ctx.drawImage(
-      this.img,
-      0,
-      0,
-      this.width,
-      this.height,
-      0,
-      this.top,
-      screenWidth,
-      screenHeight
-    )
+    for (let i = 0; i < CELL_NUMS + 1; i++) {
+      ctx.moveTo(BORDER_CHESS + CELL_SIZE * i, TOP + BORDER_CHESS);
+      ctx.lineTo(BORDER_CHESS + CELL_SIZE * i, TOP + CHESSBOARD_SIZE - BORDER_CHESS);
+      ctx.stroke();
+      ctx.moveTo(BORDER_CHESS, TOP + BORDER_CHESS + CELL_SIZE * i);
+      ctx.lineTo(CHESSBOARD_SIZE - BORDER_CHESS, TOP + BORDER_CHESS + CELL_SIZE * i);
+      ctx.stroke(); 
+    }
   }
 }
