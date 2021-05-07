@@ -24,6 +24,8 @@ export default class Chessboard extends Sprite {
     this.chesses = [];
     this.top = TOP;
     this.size = CHESSBOARD_SIZE;
+    
+    this.choiceChess = [null, -1, -1];
 
     this.render(ctx);
     // 简单创建chesses 的二维数组，真正在这里修改
@@ -34,10 +36,40 @@ export default class Chessboard extends Sprite {
     if (
       x >= BORDER_CHESS
       && x <= this.size + BORDER_CHESS
-      && y > this.top
+      && y > this.top + BORDER_CHESS
       && y < this.top + this.size - BORDER_CHESS
     ) {
       return true;
+    }
+
+    return false;
+  }
+
+  convertCoordinateToChess(x, y) {
+    const columnIndex = Math.floor((x - BORDER_CHESS) / CELL_SIZE);
+    const rowIndex = Math.floor((y - this.top - (BORDER_CHESS / 2)) / CELL_SIZE);
+
+    return { row: rowIndex, column: columnIndex };
+  }
+
+  onChessStep(row, column) {
+    if (this.choiceChess[0] === null && this.isStepEmpty(row, column)) {
+      return;
+    }
+
+    if (!this.isStepEmpty(row, column) && !this.isChessTurned(row, column)) {
+      this.chesses[row][column].turnChess();
+    }
+    // console.log(row, column, this.chesses);
+  }
+
+  isStepEmpty(row, column) {
+    return this.chesses[row][column] === null;
+  }
+
+  isChessTurned(row, column) {
+    if (this.chesses[row][column] !== null) {
+      return this.chesses[row][column].status === CHESS_STATUS.TURNED;
     }
 
     return false;
@@ -65,10 +97,11 @@ export default class Chessboard extends Sprite {
     const result = [];
     for (let rowIndex = 0; rowIndex < shuffledArray.length / CELL_NUM; rowIndex += 1) {
       const row = shuffledArray.slice(rowIndex, rowIndex + CELL_NUM);
-
+      const tempResult = [];
       row.forEach((item, columnIndex) => {
-        result.push(new Chess(ctx, rowIndex, columnIndex, item.status, item.role, item.site));
+        tempResult.push(new Chess(ctx, rowIndex, columnIndex, item.status, item.role, item.site));
       });
+      result.push(tempResult);
     }
 
     this.chesses = result;

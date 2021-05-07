@@ -61,10 +61,12 @@ export default class Chess extends Sprite {
     if (this.status === CHESS_STATUS.TURNED) return;
 
     this.status = CHESS_STATUS.TURNED;
+    this.render();
   }
 
   render() {
     // this.img.addEventListener
+    // this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.img.onload = () => {
       this.drawToCanvas(this.ctx);
     }

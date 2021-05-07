@@ -31,14 +31,14 @@ export default class Main {
     const x = e.changedTouches[0].clientX;
     const y = e.changedTouches[0].clientY;
 
-    // const x = e.touches[0].clientX
-    // const y = e.touches[0].clientY
-    console.log(this.chessboard);
+    // 判断是否在chess board 内
     if (this.chessboard.isInChessboard(x, y)) {
-      console.log('in chessboard');
+      // 换算成 chess 的index
+      const { row, column } = this.chessboard.convertCoordinateToChess(x, y);
+      // 
+      this.chessboard.onChessStep(row, column);
       return;
     }
-    console.log('out chessboard');
   }
 
   /**
