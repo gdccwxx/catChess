@@ -1,13 +1,13 @@
 import Sprite from '../base/sprite'
-import { CHESS_STATUS, ROLE, SITE, CHESS_COUNT } from '../constant';
+import { CHESS_STATUS, ROLE, SITE, CHESS_COUNT, CELL_NUM } from '../constant';
 import { shuffle } from '../libs/utils';
+import Chess from './chess';
 
 const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
 
 const BG_IMG_SRC = 'images/bg.jpg'
 
-const CELL_NUM = 6; // 一共横、竖向有多少个
 const BORDER_CHESS = 20;
 
 const CHESSBOARD_SIZE = Math.min(screenHeight, screenWidth);
@@ -19,14 +19,14 @@ const TOP = (Math.max(screenHeight, screenWidth) - CHESSBOARD_SIZE) / 2;
  */
 export default class Chessboard extends Sprite {
   constructor(ctx) {
-    super(BG_IMG_SRC, screenWidth, screenHeight)
+    super(BG_IMG_SRC, screenWidth, screenHeight);
 
     this.chesses = [];
     this.top = 0
 
     this.render(ctx);
     // 简单创建chesses 的二维数组，真正在这里修改
-    this.initChess();
+    this.initChess(ctx);
   }
 
   start() {
@@ -34,7 +34,7 @@ export default class Chessboard extends Sprite {
   }
 
   // 初始化的时候会在这里
-  initChess() {
+  initChess(ctx) {
     const fillArray = [];
     for (let key in CHESS_COUNT) {
       for (let i = 0; i < CHESS_COUNT[key]; i++) {
@@ -53,9 +53,13 @@ export default class Chessboard extends Sprite {
 
     const shuffledArray = shuffle(fillArray);
     const result = [];
-    for (let i = 0; i < shuffledArray.length; i += CELL_NUM) {
-      result.push(shuffledArray.slice(i, i + CELL_NUM));
+    for (let rowIndex = 0; rowIndex < shuffledArray.length / CELL_NUM; rowIndex += 1) {
+      const row = shuffledArray.slice(rowIndex, rowIndex + CELL_NUM);
+      row.forEach((item, columnIndex) => {
+        result.push(new Chess(ctx, rowIndex, columnIndex, item.status, item.role, item.site));
+      });
     }
+
     this.chesses = result;
   }
 

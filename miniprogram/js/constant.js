@@ -15,9 +15,9 @@ export const ROLE = {
 };
 
 export const SITE = {
-  UNINITIALIZED: 0, // 未初始化
-  RED: 1, // 红色
-  BLUE: 2, // 蓝色
+  UNINITIALIZED: 'null', // 未初始化
+  RED: 'red', // 红色
+  BLUE: 'blue', // 蓝色
 };
 
 // 不同棋子的数量
@@ -29,3 +29,5 @@ export const CHESS_COUNT = {
   LEVEL_5: 1,
   LEVEL_6: 1,
 };
+
+export const CELL_NUM = 6;
