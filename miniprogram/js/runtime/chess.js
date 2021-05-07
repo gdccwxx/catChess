@@ -12,8 +12,7 @@ const TOP = (Math.max(screenHeight, screenWidth) - CHESSBOARD_SIZE) / 2;
 
 const getChessSrc = (status, site, role) => {
   if (status === CHESS_STATUS.INITIALIZED) {
-    return `images/chess-${site}-level-${6}.png`;
-    // return 'images/chess-init.png';
+    return 'images/chess-init.png';
   }
   if (status === CHESS_STATUS.TURNED) {
     // return `images/chess-${site}-level-${role}`;
@@ -55,6 +54,13 @@ export default class Chess extends Sprite {
 
   moveTo(rowIndex, columnIndex) {
     this.render()
+  }
+
+  // 反转棋子
+  turnChess() {
+    if (this.status === CHESS_STATUS.TURNED) return;
+
+    this.status = CHESS_STATUS.TURNED;
   }
 
   render() {

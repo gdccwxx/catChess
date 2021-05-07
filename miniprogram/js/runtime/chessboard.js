@@ -22,15 +22,25 @@ export default class Chessboard extends Sprite {
     super(BG_IMG_SRC, screenWidth, screenHeight);
 
     this.chesses = [];
-    this.top = 0
+    this.top = TOP;
+    this.size = CHESSBOARD_SIZE;
 
     this.render(ctx);
     // 简单创建chesses 的二维数组，真正在这里修改
     this.initChess(ctx);
   }
 
-  start() {
+  isInChessboard(x, y) {
+    if (
+      x >= BORDER_CHESS
+      && x <= this.size + BORDER_CHESS
+      && y > this.top
+      && y < this.top + this.size - BORDER_CHESS
+    ) {
+      return true;
+    }
 
+    return false;
   }
 
   // 初始化的时候会在这里
@@ -55,6 +65,7 @@ export default class Chessboard extends Sprite {
     const result = [];
     for (let rowIndex = 0; rowIndex < shuffledArray.length / CELL_NUM; rowIndex += 1) {
       const row = shuffledArray.slice(rowIndex, rowIndex + CELL_NUM);
+
       row.forEach((item, columnIndex) => {
         result.push(new Chess(ctx, rowIndex, columnIndex, item.status, item.role, item.site));
       });
@@ -63,11 +74,11 @@ export default class Chessboard extends Sprite {
     this.chesses = result;
   }
 
-  update() {
-    this.top += 2
+  // update() {
+  //   this.top += 2
 
-    if (this.top >= screenHeight) this.top = 0
-  }
+  //   if (this.top >= screenHeight) this.top = 0
+  // }
 
   render(ctx) {
     ctx.strokeStyle = "#BFBFBF";
