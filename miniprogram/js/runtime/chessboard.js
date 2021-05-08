@@ -58,18 +58,17 @@ export default class Chessboard extends Sprite {
     }
 
     if (!this.isStepEmpty(row, column) && !this.isChessTurned(row, column)) {
-      this.chesses[row][column].turnChess();
+      this.chesses[column][row].turnChess();
     }
-    // console.log(row, column, this.chesses);
   }
 
   isStepEmpty(row, column) {
-    return this.chesses[row][column] === null;
+    return this.chesses[column][row] === null;
   }
 
   isChessTurned(row, column) {
-    if (this.chesses[row][column] !== null) {
-      return this.chesses[row][column].status === CHESS_STATUS.TURNED;
+    if (this.chesses[column][row] !== null) {
+      return this.chesses[column][row].status === CHESS_STATUS.TURNED;
     }
 
     return false;

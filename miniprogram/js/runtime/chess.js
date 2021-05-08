@@ -61,12 +61,19 @@ export default class Chess extends Sprite {
     if (this.status === CHESS_STATUS.TURNED) return;
 
     this.status = CHESS_STATUS.TURNED;
+    this.imgSrc = getChessSrc(this.status, this.site, this.role);
+    this.setImgSrc(this.imgSrc);
     this.render();
   }
 
   render() {
     // this.img.addEventListener
-    // this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.clearRect(
+      BORDER_CHESS + CELL_SIZE * this.rowIndex,
+      TOP + CELL_SIZE * this.columnIndex + BORDER_CHESS,
+      CELL_SIZE - 2, 
+      CELL_SIZE - 2
+    );
     this.img.onload = () => {
       this.drawToCanvas(this.ctx);
     }

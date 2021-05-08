@@ -4,7 +4,7 @@
 export default class Sprite {
   constructor(imgSrc = '', width = 0, height = 0, x = 0, y = 0) {
     this.img = new Image()
-    this.img.src = imgSrc
+    this.setImgSrc(imgSrc);
 
     this.width = width
     this.height = height
@@ -15,6 +15,10 @@ export default class Sprite {
     this.visible = true
   }
 
+
+  setImgSrc(src) {
+    this.img.src = src;
+  }
   /**
    * 将精灵图绘制在canvas上
    */
