@@ -53,6 +53,8 @@ export default class Chess extends Sprite {
   }
 
   moveTo(rowIndex, columnIndex) {
+    this.rowIndex = rowIndex;
+    this.columnIndex = columnIndex;
     this.render()
   }
 

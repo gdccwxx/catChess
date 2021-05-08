@@ -93,9 +93,10 @@ export default class Chessboard extends Sprite {
     }
 
     const shuffledArray = shuffle(fillArray);
+    const shuffledArrayLen = shuffledArray.length;
     const result = [];
-    for (let rowIndex = 0; rowIndex < shuffledArray.length / CELL_NUM; rowIndex += 1) {
-      const row = shuffledArray.slice(rowIndex, rowIndex + CELL_NUM);
+    for (let rowIndex = 0; rowIndex < shuffledArrayLen / CELL_NUM; rowIndex += 1) {
+      const row = shuffledArray.slice(rowIndex * CELL_NUM, (rowIndex + 1) * CELL_NUM);
       const tempResult = [];
       row.forEach((item, columnIndex) => {
         tempResult.push(new Chess(ctx, rowIndex, columnIndex, item.status, item.role, item.site));
