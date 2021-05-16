@@ -61,7 +61,7 @@ export default class Chessboard extends Sprite {
     }
 
     if (!this.isStepEmpty(row, column) && !this.isChessTurned(row, column)) {
-      onTurnChess(row, column);
+      this.onTurnChess(row, column);
     }
   }
 
