@@ -14,9 +14,6 @@ const CHESSBOARD_SIZE = Math.min(screenHeight, screenWidth);
 const CELL_SIZE = (CHESSBOARD_SIZE - BORDER_CHESS * 2) / 6;
 const TOP = (Math.max(screenHeight, screenWidth) - CHESSBOARD_SIZE) / 2;
 
-/**
- * 游戏背景类
- */
 export default class Chessboard extends Sprite {
   constructor(ctx) {
     super(BG_IMG_SRC, screenWidth, screenHeight);
@@ -25,11 +22,19 @@ export default class Chessboard extends Sprite {
     this.top = TOP;
     this.size = CHESSBOARD_SIZE;
 
+    // [选中棋子, row, column]
     this.choiceChess = [null, -1, -1];
+    this.site = SITE.UNINITIALIZED;
 
     this.render(ctx);
     // 简单创建chesses 的二维数组，真正在这里修改
     this.initChess(ctx);
+    this.start();
+  }
+
+  start() {
+    this.site = Math.random() > 0.5 ? SITE.RED : SITE.BLUE;
+    console.log('site', this.site);
   }
 
   // 是否点击
@@ -46,6 +51,20 @@ export default class Chessboard extends Sprite {
     return false;
   }
 
+  toggleSite() {
+    if (this.site === SITE.RED) {
+      this.site = SITE.BLUE;
+      console.log('site', this.site);
+      return;
+    }
+
+    if (this.site === SITE.BLUE) {
+      this.site = SITE.RED;
+      console.log('site', this.site);
+      return;
+    }
+  }
+
   // 把屏幕的坐标点转化成棋盘上的坐标点
   convertCoordinateToChess(x, y) {
     const columnIndex = Math.floor((x - BORDER_CHESS) / CELL_SIZE);
@@ -56,21 +75,34 @@ export default class Chessboard extends Sprite {
 
   // 判断是否需要下一步
   onChessStep(row, column) {
-    if (this.choiceChess[0] === null && this.isStepEmpty(row, column)) {
+    // 判断是否点击的是空
+    if (this.choiceChess[0] === null && this.isPosEmpty(row, column)) {
       return;
     }
 
-    if (!this.isStepEmpty(row, column) && !this.isChessTurned(row, column)) {
+    // 判断是否需要反转棋子
+    if (!this.isPosEmpty(row, column) && !this.isChessTurned(row, column)) {
       this.onTurnChess(row, column);
+      return;
     }
+
+    // 选中棋子
+    if (!this.isSelectedChess() && this.site === this.getChessSite(row, column)) {
+      this.onSelectChess(row, column);
+      return;
+    }
+
+    // this.toggleSite();
   }
 
   // 翻开棋子
   onTurnChess(row, column) {
-    !isChessTurned(row, column) && this.chesses[column][row].turnChess();
+    !this.isChessTurned(row, column) && this.chesses[column][row].turnChess();
+    this.toggleSite();
   }
 
-  isStepEmpty(row, column) {
+  // 当前位置是否是空的
+  isPosEmpty(row, column) {
     return this.chesses[column][row] === null;
   }
 
@@ -81,6 +113,45 @@ export default class Chessboard extends Sprite {
     }
 
     return false;
+  }
+
+  // 检查棋子类型
+  getChessSite(row, column) {
+    if (this.isPosEmpty(row, column)) {
+      console.warn('their is no chess on that position');
+      return;
+    }
+
+    if (!this.isChessTurned(row, column)) {
+      console.warn('their is no turned that position');
+      return;
+    }
+
+    return this.chesses[column][row].site;
+  }
+
+  // 选择棋子
+  onSelectChess(row, column) {
+    if (this.getChessSite(row, column) !== this.site) {
+      return;
+    }
+
+    this.choiceChess = [this.chesses[column][row], row, column];
+    console.log(this.choiceChess);
+  }
+
+  // 清空选中的棋子
+  clearSelectedChess() {
+    this.choiceChess = [null, -1, -1];
+  }
+
+  // 检查是否选中了棋子
+  isSelectedChess() {
+    if (this.choiceChess[0] === null) {
+      return false;
+    }
+
+    return true;
   }
 
   // 初始化的时候会在这里
