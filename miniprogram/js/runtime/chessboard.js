@@ -1,5 +1,5 @@
 import Sprite from '../base/sprite'
-import { CHESS_STATUS, ROLE, SITE, CHESS_COUNT, CELL_NUM, EAT_RULE } from '../constant';
+import { CHESS_STATUS, ROLE, SITE, CHESS_COUNT, CELL_NUM, EAT_RULE, LEVEL_NAME_MAP, SITE_NAME_MAP } from '../constant';
 import { shuffle } from '../libs/utils';
 import Chess from './chess';
 
@@ -26,6 +26,8 @@ export default class Chessboard extends Sprite {
     this.choiceChess = [null, -1, -1];
     this.site = SITE.UNINITIALIZED;
 
+    this.ctx = ctx;
+
     this.render(ctx);
     // 简单创建chesses 的二维数组，真正在这里修改
     this.initChess(ctx);
@@ -34,7 +36,7 @@ export default class Chessboard extends Sprite {
 
   start() {
     this.site = Math.random() > 0.5 ? SITE.RED : SITE.BLUE;
-    console.log('site', this.site);
+    this.writeSite();
   }
 
   // 是否点击
@@ -52,15 +54,16 @@ export default class Chessboard extends Sprite {
   }
 
   toggleSite() {
+    this.clearSelectedChess();
     if (this.site === SITE.RED) {
       this.site = SITE.BLUE;
-      console.log('site', this.site);
+      this.writeSite();
       return;
     }
 
     if (this.site === SITE.BLUE) {
       this.site = SITE.RED;
-      console.log('site', this.site);
+      this.writeSite();
       return;
     }
   }
@@ -83,6 +86,7 @@ export default class Chessboard extends Sprite {
       const [selectChess] = this.choiceChess;
 
       selectChess.moveTo(row, column);
+      this.toggleSite();
       return;
     }
 
@@ -167,12 +171,13 @@ export default class Chessboard extends Sprite {
     }
 
     this.choiceChess = [this.chesses[row][column], row, column];
-    console.log(this.choiceChess);
+    this.writeChoicePos();
   }
 
   // 清空选中的棋子
   clearSelectedChess() {
     this.choiceChess = [null, -1, -1];
+    this.writeChoicePos();
   }
 
   // 检查是否选中了棋子
@@ -261,11 +266,35 @@ export default class Chessboard extends Sprite {
     console.log(this.chesses)
   }
 
-  // update() {
-  //   this.top += 2
+  writeSite() {
+    this.ctx.clearRect(120, 30, 20, 20);
+    this.ctx.save();
+    this.ctx.beginPath();
 
-  //   if (this.top >= screenHeight) this.top = 0
-  // }
+    // 写字
+    this.ctx.font = "18px orbitron";
+    this.ctx.fillStyle = '#ffffff';
+    this.ctx.fillText(`${SITE_NAME_MAP[this.site]} 执棋`, 120, 50, 200);
+
+    this.ctx.restore();
+    this.ctx.closePath();
+  }
+
+  writeChoicePos() {
+    const [choiceChess, row, column] = this.choiceChess;
+    let text = choiceChess !== null ? `选中: ${LEVEL_NAME_MAP[choiceChess.role]}[${row}, ${column}]` : '未选中'
+    this.ctx.clearRect(120, 53, 200, 20);
+    this.ctx.save();
+    this.ctx.beginPath();
+
+    // 写字
+    this.ctx.font = "18px orbitron";
+    this.ctx.fillStyle = '#ffffff';
+    this.ctx.fillText(text, 120, 70, 200);
+
+    this.ctx.restore();
+    this.ctx.closePath();
+  }
 
   render(ctx) {
     ctx.strokeStyle = "#BFBFBF";

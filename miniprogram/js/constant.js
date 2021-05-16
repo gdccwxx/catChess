@@ -40,4 +40,20 @@ export const EAT_RULE = {
   [ROLE.LEVEL_4]: [ROLE.LEVEL_4, ROLE.LEVEL_3, ROLE.LEVEL_2, ROLE.LEVEL_1],
   [ROLE.LEVEL_5]: [ROLE.LEVEL_5, ROLE.LEVEL_4, ROLE.LEVEL_3, ROLE.LEVEL_2, ROLE.LEVEL_1],
   [ROLE.LEVEL_6]: [ROLE.LEVEL_6, ROLE.LEVEL_5, ROLE.LEVEL_4, ROLE.LEVEL_3, ROLE.LEVEL_2],
-}
+};
+
+export const LEVEL_NAME_MAP = {
+  [ROLE.LEVEL_6]: '猫皇帝',
+  [ROLE.LEVEL_5]: '猫将军',
+  [ROLE.LEVEL_4]: '猫校尉',
+  [ROLE.LEVEL_3]: '猫箭士',
+  [ROLE.LEVEL_2]: '猫小兵',
+  [ROLE.LEVEL_1]: '猫刺客',
+  [ROLE.UNINITIALIZED]: '初始化'
+};
+
+export const SITE_NAME_MAP = {
+  [SITE.UNINITIALIZED]: '系统',
+  [SITE.BLUE]: '蓝方',
+  [SITE.RED]: '红方',
+};
