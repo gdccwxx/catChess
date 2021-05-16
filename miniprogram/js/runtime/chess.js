@@ -21,6 +21,14 @@ const getChessSrc = (status, site, role) => {
   return 'images/chess-init.png';
 }
 
+const getChessPosX = (column) => {
+  return column * CELL_SIZE + BORDER_CHESS
+}
+
+const getChessPosY = (row) => {
+  return row * CELL_SIZE + TOP + BORDER_CHESS;
+}
+
 export default class Chess extends Sprite {
   // 提供 ctx 画板
   // rowIndex 第几行
@@ -33,8 +41,8 @@ export default class Chess extends Sprite {
       getChessSrc(status, site, role),
       CELL_SIZE,
       CELL_SIZE,
-      rowIndex * CELL_SIZE + BORDER_CHESS,
-      columnIndex * CELL_SIZE + TOP + BORDER_CHESS,
+      getChessPosX(columnIndex),
+      getChessPosY(rowIndex),
     );
     this.rowIndex = rowIndex;
     this.columnIndex = columnIndex;
@@ -52,8 +60,15 @@ export default class Chess extends Sprite {
   }
 
   moveTo(rowIndex, columnIndex) {
+    this.clearChessPos();
+
     this.rowIndex = rowIndex;
     this.columnIndex = columnIndex;
+    this.x = getChessPosX(this.columnIndex);
+    this.y = getChessPosY(this.rowIndex);
+
+    this.clearChessPos();
+    this.imgSrc = getChessSrc(this.status, this.site, this.role);
     this.render()
   }
 
@@ -64,20 +79,24 @@ export default class Chess extends Sprite {
     this.status = CHESS_STATUS.TURNED;
     this.imgSrc = getChessSrc(this.status, this.site, this.role);
     this.setImgSrc(this.imgSrc);
+    this.clearChessPos();
     this.render();
   }
 
-  render() {
-    // this.img.addEventListener
+  clearChessPos() {
     this.ctx.clearRect(
-      BORDER_CHESS + CELL_SIZE * this.rowIndex,
-      TOP + CELL_SIZE * this.columnIndex + BORDER_CHESS,
+      getChessPosX(this.columnIndex),
+      getChessPosY(this.rowIndex),
       CELL_SIZE - 2, 
       CELL_SIZE - 2
     );
+  }
+
+  render() {
     this.img.onload = () => {
       this.drawToCanvas(this.ctx);
     }
+    this.drawToCanvas(this.ctx);
     // this.ctx.beginPath();
     // this.ctx.arc(200, 200, 100, 0, 2 * Math.PI);
     // this.ctx.closePath();

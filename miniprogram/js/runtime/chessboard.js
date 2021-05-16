@@ -1,5 +1,5 @@
 import Sprite from '../base/sprite'
-import { CHESS_STATUS, ROLE, SITE, CHESS_COUNT, CELL_NUM } from '../constant';
+import { CHESS_STATUS, ROLE, SITE, CHESS_COUNT, CELL_NUM, EAT_RULE } from '../constant';
 import { shuffle } from '../libs/utils';
 import Chess from './chess';
 
@@ -75,6 +75,35 @@ export default class Chessboard extends Sprite {
 
   // 判断是否需要下一步
   onChessStep(row, column) {
+    if (this.isPosEmpty(row, column) && !this.isSelectedChess()) {
+      return;
+    }
+
+    if (this.isPosEmpty(row, column) && this.isSelectedChess()) {
+      const [selectChess] = this.choiceChess;
+
+      selectChess.moveTo(row, column);
+      return;
+    }
+
+    // 如果位置上有棋子, 可以吃
+    if (
+      !this.isPosEmpty(row, column)
+      && this.isSelectedChess()
+    ) {
+      // 吃掉棋子
+      if (this.couldEat(this.choiceChess[0], this.chesses[row][column])) {
+        this.eatChess(row, column);
+        return;
+      }
+
+      if (this.couldEat(this.chesses[row][column], this.choiceChess[0])) {
+        this.beEatChess(row, column);
+        return;
+      }
+
+    }
+
     // 判断是否点击的是空
     if (this.choiceChess[0] === null && this.isPosEmpty(row, column)) {
       return;
@@ -87,7 +116,7 @@ export default class Chessboard extends Sprite {
     }
 
     // 选中棋子
-    if (!this.isSelectedChess() && this.site === this.getChessSite(row, column)) {
+    if (this.site === this.getChessSite(row, column)) {
       this.onSelectChess(row, column);
       return;
     }
@@ -97,19 +126,20 @@ export default class Chessboard extends Sprite {
 
   // 翻开棋子
   onTurnChess(row, column) {
-    !this.isChessTurned(row, column) && this.chesses[column][row].turnChess();
+    !this.isChessTurned(row, column) && this.chesses[row][column].turnChess();
     this.toggleSite();
+    console.log(this.chesses);
   }
 
   // 当前位置是否是空的
   isPosEmpty(row, column) {
-    return this.chesses[column][row] === null;
+    return this.chesses[row][column] === null;
   }
 
   // 棋子是否被反转
   isChessTurned(row, column) {
-    if (this.chesses[column][row] !== null) {
-      return this.chesses[column][row].status === CHESS_STATUS.TURNED;
+    if (this.chesses[row][column] !== null) {
+      return this.chesses[row][column].status === CHESS_STATUS.TURNED;
     }
 
     return false;
@@ -127,7 +157,7 @@ export default class Chessboard extends Sprite {
       return;
     }
 
-    return this.chesses[column][row].site;
+    return this.chesses[row][column].site;
   }
 
   // 选择棋子
@@ -136,7 +166,7 @@ export default class Chessboard extends Sprite {
       return;
     }
 
-    this.choiceChess = [this.chesses[column][row], row, column];
+    this.choiceChess = [this.chesses[row][column], row, column];
     console.log(this.choiceChess);
   }
 
@@ -152,6 +182,49 @@ export default class Chessboard extends Sprite {
     }
 
     return true;
+  }
+
+  // 是否可以吃掉棋子
+  couldEat(chess, beEatChess) {
+    if (chess.site === beEatChess.site || chess.status !== CHESS_STATUS.TURNED || beEatChess.status !== CHESS_STATUS.TURNED) {
+      return false;
+    }
+    return EAT_RULE[chess.role].includes(beEatChess.role);
+  }
+
+  // 吃掉棋子
+  eatChess(beEatRow, beEatColumn) {
+    if (!this.isSelectedChess()) {
+      console.warn('none select chesses, can not eat');
+      return;
+    }
+
+    const [selectChess, row, column] = this.choiceChess;
+    if (this.couldEat(selectChess, this.chesses[beEatRow][beEatColumn])) {
+      this.chesses[beEatRow][beEatColumn] = selectChess;
+      this.chesses[row][column] = null;
+
+      selectChess.moveTo(beEatRow, beEatColumn);
+      console.log(this.chesses);
+      this.clearSelectedChess();
+      this.toggleSite();
+    }
+  }
+
+  // 被吃掉,例如无法吃掉别人的时候，就会被吃掉
+  beEatChess(eatRow, eatColumn) {
+    if (!this.isSelectedChess()) {
+      console.warn('none select chesses, can not eat');
+      return;
+    }
+
+    const [selectChess, row, column] = this.choiceChess;
+    if (this.couldEat(this.chesses[eatColumn][eatRow], selectChess)) {
+      this.chesses[row][column].clearChessPos();
+      this.chesses[row][column] = null;
+      this.clearSelectedChess();
+      this.toggleSite();
+    }
   }
 
   // 初始化的时候会在这里
@@ -185,6 +258,7 @@ export default class Chessboard extends Sprite {
     }
 
     this.chesses = result;
+    console.log(this.chesses)
   }
 
   // update() {
