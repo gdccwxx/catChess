@@ -32,7 +32,7 @@ export default class Main {
     const y = e.changedTouches[0].clientY;
 
     // 判断是否在chess board 内
-    if (this.chessboard.isInChessboard(x, y)) {
+    if (this.chessboard.isClickInChessboard(x, y)) {
       // 换算成 chess 的index
       const { row, column } = this.chessboard.convertCoordinateToChess(x, y);
       // 

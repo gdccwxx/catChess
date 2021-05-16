@@ -24,7 +24,7 @@ export default class Chessboard extends Sprite {
     this.chesses = [];
     this.top = TOP;
     this.size = CHESSBOARD_SIZE;
-    
+
     this.choiceChess = [null, -1, -1];
 
     this.render(ctx);
@@ -32,7 +32,8 @@ export default class Chessboard extends Sprite {
     this.initChess(ctx);
   }
 
-  isInChessboard(x, y) {
+  // 是否点击
+  isClickInChessboard(x, y) {
     if (
       x >= BORDER_CHESS
       && x <= this.size + BORDER_CHESS
@@ -45,6 +46,7 @@ export default class Chessboard extends Sprite {
     return false;
   }
 
+  // 把屏幕的坐标点转化成棋盘上的坐标点
   convertCoordinateToChess(x, y) {
     const columnIndex = Math.floor((x - BORDER_CHESS) / CELL_SIZE);
     const rowIndex = Math.floor((y - this.top - (BORDER_CHESS / 2)) / CELL_SIZE);
@@ -52,20 +54,27 @@ export default class Chessboard extends Sprite {
     return { row: rowIndex, column: columnIndex };
   }
 
+  // 判断是否需要下一步
   onChessStep(row, column) {
     if (this.choiceChess[0] === null && this.isStepEmpty(row, column)) {
       return;
     }
 
     if (!this.isStepEmpty(row, column) && !this.isChessTurned(row, column)) {
-      this.chesses[column][row].turnChess();
+      onTurnChess(row, column);
     }
+  }
+
+  // 翻开棋子
+  onTurnChess(row, column) {
+    !isChessTurned(row, column) && this.chesses[column][row].turnChess();
   }
 
   isStepEmpty(row, column) {
     return this.chesses[column][row] === null;
   }
 
+  // 棋子是否被反转
   isChessTurned(row, column) {
     if (this.chesses[column][row] !== null) {
       return this.chesses[column][row].status === CHESS_STATUS.TURNED;
