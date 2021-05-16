@@ -15,8 +15,7 @@ const getChessSrc = (status, site, role) => {
     return 'images/chess-init.png';
   }
   if (status === CHESS_STATUS.TURNED) {
-    // return `images/chess-${site}-level-${role}`;
-    return `images/chess-${site}-level-${6}.png`;
+    return `images/chess-${site}-level-${role}.png`;
   }
 
   return 'images/chess-init.png';
