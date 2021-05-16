@@ -83,10 +83,8 @@ export default class Chessboard extends Sprite {
     }
 
     if (this.isPosEmpty(row, column) && this.isSelectedChess()) {
-      const [selectChess] = this.choiceChess;
-
-      selectChess.moveTo(row, column);
-      this.toggleSite();
+      this.moveChess(row, column);
+      console.log(this.chesses);
       return;
     }
 
@@ -98,11 +96,15 @@ export default class Chessboard extends Sprite {
       // 吃掉棋子
       if (this.couldEat(this.choiceChess[0], this.chesses[row][column])) {
         this.eatChess(row, column);
+        console.log('eat');
+        console.log(this.chesses);
         return;
       }
 
       if (this.couldEat(this.chesses[row][column], this.choiceChess[0])) {
         this.beEatChess(row, column);
+        console.log('be eat');
+        console.log(this.chesses);
         return;
       }
 
@@ -124,15 +126,12 @@ export default class Chessboard extends Sprite {
       this.onSelectChess(row, column);
       return;
     }
-
-    // this.toggleSite();
   }
 
   // 翻开棋子
   onTurnChess(row, column) {
     !this.isChessTurned(row, column) && this.chesses[row][column].turnChess();
     this.toggleSite();
-    console.log(this.chesses);
   }
 
   // 当前位置是否是空的
@@ -194,7 +193,13 @@ export default class Chessboard extends Sprite {
     if (chess.site === beEatChess.site || chess.status !== CHESS_STATUS.TURNED || beEatChess.status !== CHESS_STATUS.TURNED) {
       return false;
     }
-    return EAT_RULE[chess.role].includes(beEatChess.role);
+    const rowIndexAbs = Math.abs(chess.rowIndex - beEatChess.rowIndex);
+    const columnIndexAbs = Math.abs(chess.columnIndex - beEatChess.columnIndex);
+    if ((rowIndexAbs === 0 && columnIndexAbs === 1) || (rowIndexAbs === 1 && columnIndexAbs === 0)) {
+      return EAT_RULE[chess.role].includes(beEatChess.role);
+    }
+
+    return false;
   }
 
   // 吃掉棋子
@@ -210,7 +215,6 @@ export default class Chessboard extends Sprite {
       this.chesses[row][column] = null;
 
       selectChess.moveTo(beEatRow, beEatColumn);
-      console.log(this.chesses);
       this.clearSelectedChess();
       this.toggleSite();
     }
@@ -224,12 +228,27 @@ export default class Chessboard extends Sprite {
     }
 
     const [selectChess, row, column] = this.choiceChess;
-    if (this.couldEat(this.chesses[eatColumn][eatRow], selectChess)) {
+    if (this.couldEat(this.chesses[eatRow][eatColumn], selectChess)) {
+      console.log('be eat chess', row, column);
       this.chesses[row][column].clearChessPos();
       this.chesses[row][column] = null;
       this.clearSelectedChess();
       this.toggleSite();
     }
+  }
+
+  moveChess(row, column) {
+    if (!this.isSelectedChess()) {
+      return;
+    }
+
+    const [choiceChess, choiceRow, choiceColumn] = this.choiceChess;
+    this.chesses[choiceRow][choiceColumn] = null;
+    this.chesses[row][column] = choiceChess;
+
+    this.chesses[row][column].moveTo(row, column);
+
+    this.toggleSite();
   }
 
   // 初始化的时候会在这里
@@ -263,7 +282,6 @@ export default class Chessboard extends Sprite {
     }
 
     this.chesses = result;
-    console.log(this.chesses)
   }
 
   writeSite() {
@@ -282,7 +300,9 @@ export default class Chessboard extends Sprite {
 
   writeChoicePos() {
     const [choiceChess, row, column] = this.choiceChess;
-    let text = choiceChess !== null ? `选中: ${LEVEL_NAME_MAP[choiceChess.role]}[${row}, ${column}]` : '未选中'
+    const text = choiceChess !== null
+      ? `选中: ${LEVEL_NAME_MAP[choiceChess.role]}[${row + 1}, ${column + 1}]`
+      : '未选中';
     this.ctx.clearRect(120, 53, 200, 20);
     this.ctx.save();
     this.ctx.beginPath();
