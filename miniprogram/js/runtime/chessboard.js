@@ -102,9 +102,9 @@ export default class Chessboard extends Sprite {
       }
 
       if (this.couldEat(this.chesses[row][column], this.choiceChess[0])) {
-        this.beEatChess(row, column);
-        console.log('be eat');
-        console.log(this.chesses);
+        // this.beEatChess(row, column);
+        // console.log('be eat');
+        // console.log(this.chesses);
         return;
       }
 
